@@ -17,7 +17,8 @@
     {{ range .Site.Pages }}
       {{ $page := . }}
       {{ $has_common_tags := intersect $tags .Params.tags | len | lt 0 }}
-      {{ if and $has_common_tags (ne $page_link $page.Permalink) }}
+      {{ if and $has_common_tags (ne $page_link $page.Permalink) (lt ($.Scratch.Get "$i") 5) }}
+      {{ $.Scratch.Add "$i" 1 }}
         <li><a href="{{ $page.Permalink }}">{{ $page.Title }}</a> &ndash; {{ $page.ReadingTime }} minutes
       {{ end }}
     {{ end }}
